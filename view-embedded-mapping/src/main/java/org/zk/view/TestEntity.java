@@ -6,18 +6,11 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
-/**
- * Created with IntelliJ IDEA.
- * User: zkadragic
- * Date: 11/11/13
- * Time: 2:32 PM
- * To change this template use File | Settings | File Templates.
- */
 @Embeddable
 public class TestEntity implements Serializable {
     @Column(name = "prva_day")
     String prvi;
-    @Column(name= "druga_day")
+    @Column(name = "druga_day")
     String drugi;
     @Formula("prva_day || druga_day")
     String combined;

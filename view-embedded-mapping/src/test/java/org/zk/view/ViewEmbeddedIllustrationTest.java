@@ -32,12 +32,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.List;
 
-/**
- * Illustrates the use of Hibernate native APIs.  The code here is unchanged from the {@code basic} example, the
- * only difference being the use of annotations to supply the metadata instead of Hibernate mapping files.
- *
- * @author Steve Ebersole
- */
+
 public class ViewEmbeddedIllustrationTest {
 	//private SessionFactory sessionFactory;
     EntityManagerFactory entityManagerFactory;
