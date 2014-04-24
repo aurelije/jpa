@@ -1,32 +1,10 @@
-<!--
-  ~ Hibernate, Relational Persistence for Idiomatic Java
-  ~
-  ~ Copyright (c) 2010, Red Hat Inc. or third-party contributors as
-  ~ indicated by the @author tags or express copyright attribution
-  ~ statements applied by the authors.  All third-party contributions are
-  ~ distributed under license by Red Hat Inc.
-  ~
-  ~ This copyrighted material is made available to anyone wishing to use, modify,
-  ~ copy, or redistribute it subject to the terms and conditions of the GNU
-  ~ Lesser General Public License, as published by the Free Software Foundation.
-  ~
-  ~ This program is distributed in the hope that it will be useful,
-  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-  ~ or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
-  ~ for more details.
-  ~
-  ~ You should have received a copy of the GNU Lesser General Public License
-  ~ along with this distribution; if not, write to:
-  ~ Free Software Foundation, Inc.
-  ~ 51 Franklin Street, Fifth Floor
-  ~ Boston, MA  02110-1301  USA
-  -->
-<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+<persistence version="2.1"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
-             version="2.0">
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 
-    <persistence-unit name="org.hibernate.tutorial.jpa">
+
+<persistence-unit name="org.hibernate.tutorial.jpa">
         <description>
             Persistence unit for the JPA tutorial of the Hibernate Getting Started Guide
         </description>
@@ -42,6 +20,24 @@
 
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.hbm2ddl.auto" value="validate" />
+            <!--
+
+            Use a new 3.2.3+ generators
+
+            In Hibernate 4.x, if new_generator_mappings is true:
+
+            @GeneratedValue(AUTO) maps to org.hibernate.id.enhanced.SequenceStyleGenerator
+            @GeneratedValue(TABLE) maps to org.hibernate.id.enhanced.TableGenerator
+            @GeneratedValue(SEQUENCE) maps to org.hibernate.id.enhanced.SequenceStyleGenerator
+
+            In Hibernate 4.x, if new_generator_mappings is false:
+
+            @GeneratedValue(AUTO) maps to Hibernate "native"
+            @GeneratedValue(TABLE) maps to org.hibernate.id.MultipleHiLoPerTableGenerator
+            @GeneratedValue(SEQUENCE) to Hibernate "seqhilo"
+
+             -->
+            <property name="hibernate.id.new_generator_mappings" value="true"/>
         </properties>
 
     </persistence-unit>

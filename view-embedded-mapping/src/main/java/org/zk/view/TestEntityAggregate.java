@@ -19,7 +19,7 @@ public class TestEntityAggregate implements Serializable {
 
 
     @Id
-    private Integer id;
+    private Long id;
 
     public void setDay(TestEntity day) {
         this.day = day;
@@ -40,17 +40,13 @@ public class TestEntityAggregate implements Serializable {
     private TestEntity month;
 
 
-        public TestEntityAggregate() {
-            // this form used by Hibernate
-        }
+    public TestEntityAggregate() {
+        // this form used by Hibernate
+    }
 
-        public Integer getId() {
-            return id;
-        }
-
-        private void setId(Integer id) {
-            this.id = id;
-        }
+    public Long getId() {
+        return id;
+    }
 
     @Override
     public String toString() {

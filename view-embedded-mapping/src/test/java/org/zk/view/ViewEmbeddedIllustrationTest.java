@@ -95,7 +95,8 @@ public class ViewEmbeddedIllustrationTest {
 
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        TestEntityAggregate tea = entityManager.find(TestEntityAggregate.class, 1);
+        // Long needs to be sent as a id
+        TestEntityAggregate tea = entityManager.find(TestEntityAggregate.class, 1L);
 
         System.out.print("test 2 ");
         System.out.println(tea);
