@@ -33,8 +33,8 @@ import javax.persistence.Persistence;
 import java.util.List;
 
 
-public class ViewEmbeddedIllustrationTest {
-	//private SessionFactory sessionFactory;
+public class ViewEmbeddedIllustrationIT {
+    //private SessionFactory sessionFactory;
     EntityManagerFactory entityManagerFactory;
 
     @Before
