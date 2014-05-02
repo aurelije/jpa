@@ -8,10 +8,14 @@ import java.io.Serializable;
 
 @Embeddable
 public class TestEntity implements Serializable {
+    private static final long serialVersionUID = -3793347872874713865L;
+    
     @Column(name = "prva_day")
     String prvi;
     @Column(name = "druga_day")
     String drugi;
+    
+    // an example of Hibernate specific feature 
     @Formula("prva_day || druga_day")
     String combined;
 

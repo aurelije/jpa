@@ -9,8 +9,8 @@ import java.io.Serializable;
 @Immutable
 @Table( name = "view_test" )
 public class TestEntityAggregate implements Serializable {
-
-
+    private static final long serialVersionUID = 6583871023213001867L;
+    
     @Id
     private Long id;
     @Embedded
