@@ -1,12 +1,12 @@
 package org.zk.view;
 
-import org.hibernate.annotations.Immutable;
+//import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Immutable
+//@Immutable
 @Table( name = "view_test" )
 public class TestEntityAggregate implements Serializable {
     private static final long serialVersionUID = 6583871023213001867L;
@@ -26,19 +26,21 @@ public class TestEntityAggregate implements Serializable {
         // this form used by Hibernate
     }
 
-    public void setDay(TestEntity day) {
-        this.day = day;
-    }
-
-    public void setMonth(TestEntity month) {
-        this.month = month;
-    }
-
     public Long getId() {
         return id;
     }
+    
+    
 
-    @Override
+    public TestEntity getDay() {
+		return day;
+	}
+
+	public TestEntity getMonth() {
+		return month;
+	}
+
+	@Override
     public String toString() {
         return "TestEntityAggregate{" +
                 "id=" + id +

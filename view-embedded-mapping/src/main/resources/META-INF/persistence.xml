@@ -24,7 +24,7 @@
             <property name="hibernate.hbm2ddl.auto" value="validate"/>
             <!--
 
-            Use a new 3.2.3+ generators
+            Use a new Hibernate 3.2.3+ generators
 
             In Hibernate 4.x, if new_generator_mappings is true:
 

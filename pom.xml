@@ -112,6 +112,7 @@
                 <groupId>org.apache.derby</groupId>
                 <artifactId>derbyclient</artifactId>
                 <version>${version.derby}</version>
+                <scope>test</scope>
             </dependency>
 
             <!-- H2 rocks for small-scale deployment -->
@@ -119,6 +120,7 @@
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
                 <version>${version.h2}</version>
+                <scope>test</scope>
             </dependency>
 
         </dependencies>

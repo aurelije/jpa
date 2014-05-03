@@ -9,22 +9,36 @@
             Persistence unit for the JPA tutorial of the Hibernate Getting Started Guide
         </description>
 
-        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+<!--         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider> -->
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
         <class>org.zk.view.TestEntityAggregate</class>
         <class>org.zk.view.TestEntity</class>
 
         <properties>
+			<!-- PostgreSQL configuration -->
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql:test"/>
             <property name="javax.persistence.jdbc.user" value="nonadmin"/>
             <property name="javax.persistence.jdbc.password" value="nonadmin"/>
+            
+            <!-- H2Database configuration -->
+           <!--  <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:~/test;MODE=PostgreSQL"/>
+            <property name="javax.persistence.jdbc.user" value="sa"/>
+            <property name="javax.persistence.jdbc.password" value=""/> -->
+            
+            <!-- force JPA providers to use PostgreSQL syntax even for H2 databese -->
+            <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.PostgreSQLPlatform"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect"/>
 
+			<!-- turn on verbose logging on both providers -->
             <property name="hibernate.show_sql" value="true"/>
+			<property name="eclipselink.logging.level" value="FINE"/>
 <!--             <property name="hibernate.hbm2ddl.auto" value="validate"/> -->
             <!--
 
-            Use a new 3.2.3+ generators
+            Use a new Hibernate 3.2.3+ generators
 
             In Hibernate 4.x, if new_generator_mappings is true:
 

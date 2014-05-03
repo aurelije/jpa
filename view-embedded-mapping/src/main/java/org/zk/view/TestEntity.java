@@ -1,6 +1,6 @@
 package org.zk.view;
 
-import org.hibernate.annotations.Formula;
+//import org.hibernate.annotations.Formula;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -10,14 +10,14 @@ import java.io.Serializable;
 public class TestEntity implements Serializable {
     private static final long serialVersionUID = -3793347872874713865L;
     
-    @Column(name = "prva_day")
-    String prvi;
-    @Column(name = "druga_day")
-    String drugi;
+    @Column(name = "prva_day", insertable=false, updatable=false)
+    private String prvi;
+    @Column(name = "druga_day", insertable=false, updatable=false)
+    private String drugi;
     
     // an example of Hibernate specific feature 
-    @Formula("prva_day || druga_day")
-    String combined;
+    //@Formula("prva_day || druga_day")
+    //String combined;
 
     public TestEntity() {
 
@@ -28,7 +28,7 @@ public class TestEntity implements Serializable {
         return "TestEntity{" +
                 "prvi='" + prvi + '\'' +
                 ", drugi='" + drugi + '\'' +
-                ", combined='" + combined + '\'' +
+                //", combined='" + combined + '\'' +
                 '}';
     }
 
@@ -48,7 +48,7 @@ public class TestEntity implements Serializable {
         this.drugi = drugi;
     }
 
-    public String getCombined() {
-        return combined;
-    }
+    //public String getCombined() {
+    //    return combined;
+    //}
 }

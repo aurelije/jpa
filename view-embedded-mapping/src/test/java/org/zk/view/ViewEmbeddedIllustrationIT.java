@@ -42,6 +42,8 @@ public class ViewEmbeddedIllustrationIT {
         for (TestEntityAggregate tea : result) {
             System.out.println(tea);
         }
+        
+        result.get(0).getDay().setPrvi("novi string ako se primi :)");
 
         entityManager.getTransaction().commit();
         entityManager.close();
