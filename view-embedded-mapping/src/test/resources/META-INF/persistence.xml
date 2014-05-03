@@ -21,7 +21,7 @@
             <property name="javax.persistence.jdbc.password" value="nonadmin"/>
 
             <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="validate"/>
+<!--             <property name="hibernate.hbm2ddl.auto" value="validate"/> -->
             <!--
 
             Use a new 3.2.3+ generators
@@ -40,13 +40,13 @@
 
              -->
             <property name="hibernate.id.new_generator_mappings" value="true"/>
-<!--             <property name="javax.persistence.schema-generation.create-script-source" value="META-INF/db/createDbInput.sql"/> -->
-<!--             <property name="javax.persistence.schema-generation.drop-script-source" value="META-INF/db/dropDbInput.sql"/> -->
-<!--             <property name="javax.persistence.schema-generation.create-source" value="script"/> -->
-<!--             <property name="javax.persistence.schema-generation.drop-source" value="script"/> -->
-<!--             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/> -->
-<!--             <property name="javax.persistence.schema-generation.create-database-schemas" value="false"/> -->
-<!--             <property name="javax.persistence.sql-load-script-source" value="META-INF/db/dataInput.sql"/> -->
+            <property name="javax.persistence.schema-generation.create-script-source" value="META-INF/db/createDbInput.sql"/>
+            <property name="javax.persistence.schema-generation.drop-script-source" value="META-INF/db/dropDbInput.sql"/>
+            <property name="javax.persistence.schema-generation.create-source" value="script"/>
+            <property name="javax.persistence.schema-generation.drop-source" value="script"/>
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <property name="javax.persistence.schema-generation.create-database-schemas" value="false"/>
+            <property name="javax.persistence.sql-load-script-source" value="META-INF/db/dataInput.sql"/>
         </properties>
     </persistence-unit>
 
