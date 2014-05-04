@@ -8,7 +8,6 @@
         <description>
             Persistence unit for the JPA tutorial of the Hibernate Getting Started Guide
         </description>
-
 <!--         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider> -->
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 

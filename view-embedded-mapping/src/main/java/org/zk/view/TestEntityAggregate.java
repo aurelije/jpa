@@ -2,8 +2,18 @@ package org.zk.view;
 
 //import org.hibernate.annotations.Immutable;
 
-import javax.persistence.*;
 import java.io.Serializable;
+
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 //@Immutable
@@ -12,9 +22,11 @@ public class TestEntityAggregate implements Serializable {
     private static final long serialVersionUID = 6583871023213001867L;
     
     @Id
-    private Long id;
+    private Long id;   
+    
     @Embedded
-    private TestEntity day;
+    private TestEntity day; 
+    
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "prvi", column = @Column(name = "prva_month")),
@@ -28,10 +40,8 @@ public class TestEntityAggregate implements Serializable {
 
     public Long getId() {
         return id;
-    }
+    }  
     
-    
-
     public TestEntity getDay() {
 		return day;
 	}

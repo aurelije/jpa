@@ -78,41 +78,18 @@
    				<scope>test</scope>
             </dependency>
 
+			<!-- The best DB ever!!! -->
             <dependency>
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
                 <version>${version.postgres}</version>
             </dependency>
 
-            <!-- eclipse link -->
+            <!-- EclipseLink -->
             <dependency>
                 <groupId>org.eclipse.persistence</groupId>
                 <artifactId>org.eclipse.persistence.jpa</artifactId>
                 <version>${version.eclipselink}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.eclipse.persistence</groupId>
-                <artifactId>org.eclipse.persistence.jpa.modelgen</artifactId>
-                <version>${version.eclipselink}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.eclipse.persistence</groupId>
-                <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
-                <version>${version.eclipselink}</version>
-            </dependency>
-
-            <!-- Derby -->
-            <dependency>
-                <groupId>org.apache.derby</groupId>
-                <artifactId>derby</artifactId>
-                <version>${version.derby}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.derby</groupId>
-                <artifactId>derbyclient</artifactId>
-                <version>${version.derby}</version>
-                <scope>test</scope>
             </dependency>
 
             <!-- H2 rocks for small-scale deployment -->
@@ -200,7 +177,6 @@
                 <plugin>
                     <groupId>org.bsc.maven</groupId>
                     <artifactId>maven-processor-plugin</artifactId>
-                    <version>${version.maven.processor.plugin}</version>
                     <executions>
                         <execution>
                             <id>process</id>
@@ -209,9 +185,6 @@
                             </goals>
                             <phase>generate-sources</phase>
                             <configuration>
-                                <compilerArguments>
-                                    -Aeclipselink.persistencexml=src/main/resources/META-INF/persistence.xml
-                                </compilerArguments>
                                 <processors>
                                     <processor>org.eclipse.persistence.internal.jpa.modelgen.CanonicalModelProcessor
                                     </processor>
@@ -219,8 +192,14 @@
                             </configuration>
                         </execution>
                     </executions>
+                    <dependencies>
+    					<dependency>
+      						<groupId>org.eclipse.persistence</groupId>
+      						<artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
+      						<version>${version.eclipselink}</version>
+    					</dependency>
+  					</dependencies>
                 </plugin>
-
             </plugins>
         </pluginManagement>
     </build>
