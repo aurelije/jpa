@@ -11,9 +11,12 @@
 
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <class>org.zk.view.TestEntityAggregate</class>
-        <class>org.zk.view.TestEntity</class>
-
+        <class>org.zk.entites.Author</class>
+        <class>org.zk.entites.Image</class>
+        <class>org.zk.entites.Post</class>
+        <class>org.zk.entites.PostComment</class>
+        <class>org.zk.entites.Tag</class>
+        
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql:test"/>

@@ -23,11 +23,14 @@
 
         <version.h2>1.4.177</version.h2>
 
+        <version.guava>17.0</version.guava>
+
         <!-- Test -->
         <skipTests>false</skipTests>
         <skipITs>${skipTests}</skipITs>
         <skipUTs>${skipTests}</skipUTs>
         <version.junit>4.11</version.junit>
+        <version.fest.assert>2.0M10</version.fest.assert>
 
         <!-- Skip artifact deployment -->
         <maven.deploy.skip>true</maven.deploy.skip>
@@ -39,6 +42,7 @@
 
     <modules>
         <module>view-embedded-mapping</module>
+        <module>entities-modeling</module>
     </modules>
 
 
@@ -74,7 +78,7 @@
             <dependency>
             	<groupId>org.easytesting</groupId>
    				<artifactId>fest-assert-core</artifactId>
-   				<version>2.0M10</version>
+   				<version>${version.fest.assert}</version>
    				<scope>test</scope>
             </dependency>
 
@@ -100,11 +104,27 @@
                 <scope>test</scope>
             </dependency>
 
+            <!-- Utilities -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${version.guava}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <inherited>true</inherited>
+                <configuration>
+                    <source>${version.java}</source>
+                    <target>${version.java}</target>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -139,15 +159,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-help-plugin</artifactId>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <inherited>true</inherited>
-                    <configuration>
-                        <source>${version.java}</source>
-                        <target>${version.java}</target>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
