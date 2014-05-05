@@ -19,10 +19,17 @@
         <class>org.zk.entites.Author</class>
         
         <properties>
+            <!-- PostgreSQL configuration -->
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql:test"/>
             <property name="javax.persistence.jdbc.user" value="nonadmin"/>
             <property name="javax.persistence.jdbc.password" value="nonadmin"/>
+
+            <!-- H2Database configuration -->
+            <!--  <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+             <property name="javax.persistence.jdbc.url" value="jdbc:h2:~/test;MODE=PostgreSQL"/>
+             <property name="javax.persistence.jdbc.user" value="sa"/>
+             <property name="javax.persistence.jdbc.password" value=""/> -->
 
             <property name="hibernate.show_sql" value="true"/>
             <!-- <property name="hibernate.hbm2ddl.auto" value="validate"/> -->
