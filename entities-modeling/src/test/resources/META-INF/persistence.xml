@@ -10,8 +10,8 @@
         </description>
 
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-<!--         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider> -->
-
+        <!--<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+-->
         <class>org.zk.entites.PostComment</class>
         <class>org.zk.entites.Image</class>
         <class>org.zk.entites.Post</class>

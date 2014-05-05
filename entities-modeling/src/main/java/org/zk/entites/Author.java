@@ -1,10 +1,12 @@
 package org.zk.entites;
 
+import com.google.common.base.Objects;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 @Entity
 public class Author implements Serializable {
@@ -14,14 +16,20 @@ public class Author implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
+    @NotNull
+    @Size(min = 6, max = 40)
     private String userPassword;
+
+    @NotNull
+    @Size(min = 3, max = 20)
     private String userName;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar createdDate;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar lastModifiedDate;
-    @OneToMany(mappedBy = "author")
-    private List<Post> posts = new ArrayList<>();
 
     public String getUserPassword() {
         return userPassword;
@@ -60,4 +68,32 @@ public class Author implements Serializable {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Author that = (Author) o;
+
+        return Objects.equal(this.userPassword, that.userPassword) &&
+                Objects.equal(this.userName, that.userName) &&
+                Objects.equal(this.createdDate, that.createdDate) &&
+                Objects.equal(this.lastModifiedDate, that.lastModifiedDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(userPassword, userName, createdDate, lastModifiedDate);
+    }
+
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this)
+                .add("id", id)
+                .add("userPassword", userPassword)
+                .add("userName", userName)
+                .add("createdDate", createdDate)
+                .add("lastModifiedDate", lastModifiedDate)
+                .toString();
+    }
 }

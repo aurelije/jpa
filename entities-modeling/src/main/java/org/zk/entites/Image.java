@@ -6,6 +6,9 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Embeddable
@@ -13,14 +16,20 @@ import java.io.Serializable;
 public class Image implements Serializable {
     private static final long serialVersionUID = -3793347872874713865L;
 
+    @NotNull
+    @Size(min = 2, max = 30)
     @Column(nullable = false)
     private String title;
 
+    @NotNull
+    @Size(min = 2, max = 256)
     @Column(nullable = false)
     private String file­name;
 
+    @Min(1)
     private int sizeX;
 
+    @Min(1)
     private int sizeY;
 
     public Image(String title, String file­name, int sizeX, int sizeY) {

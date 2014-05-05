@@ -3,6 +3,8 @@ package org.zk.entites;
 import com.google.common.base.Objects;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.*;
 
@@ -14,6 +16,8 @@ public class Post implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @NotNull
+    @Size(min = 5, max = 20000)
     private String subject;
 
     private String body;
@@ -33,12 +37,12 @@ public class Post implements Serializable {
     @ElementCollection
     private Set<Image> images = new HashSet<>();
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("commentDate ASC")
     // TODO try with SortedSet
     private List<PostComment> comments = new ArrayList<>();
 
-    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private Set<Tag> tags = new HashSet<>();
 
     public Set<Image> getImages() {
@@ -139,5 +143,24 @@ public class Post implements Serializable {
                 .add("createdDate", createdDate)
                 .add("lastModifiedDate", lastModifiedDate)
                 .toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Post that = (Post) o;
+
+        return Objects.equal(this.subject, that.subject) &&
+                Objects.equal(this.body, that.body) &&
+                Objects.equal(this.postDate, that.postDate) &&
+                Objects.equal(this.createdDate, that.createdDate) &&
+                Objects.equal(this.lastModifiedDate, that.lastModifiedDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(subject, body, postDate, createdDate, lastModifiedDate);
     }
 }
