@@ -18,11 +18,11 @@ public class Image implements Serializable {
 
     @NotNull
     @Size(min = 2, max = 30)
-    @Column(nullable = false)
+    @Column(nullable = false, length = 30)
     private String title;
 
     @NotNull
-    @Size(min = 2, max = 256)
+    @Size(min = 2, max = 255)
     @Column(nullable = false)
     private String file­name;
 

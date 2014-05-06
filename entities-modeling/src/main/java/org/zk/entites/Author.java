@@ -19,10 +19,12 @@ public class Author implements Serializable {
 
     @NotNull
     @Size(min = 6, max = 40)
+    @Column(nullable = false, length = 40)
     private String userPassword;
 
     @NotNull
     @Size(min = 3, max = 20)
+    @Column(nullable = false, length = 20)
     private String userName;
 
     @Temporal(TemporalType.TIMESTAMP)

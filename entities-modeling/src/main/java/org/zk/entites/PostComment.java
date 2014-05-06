@@ -18,6 +18,7 @@ public class PostComment implements Serializable {
 
     @NotNull
     @Size(min = 2, max = 2000)
+    @Column(nullable = false, length = 2000)
     private String content;
 
     @Temporal(TemporalType.TIMESTAMP)
