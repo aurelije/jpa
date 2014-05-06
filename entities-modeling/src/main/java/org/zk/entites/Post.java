@@ -17,9 +17,13 @@ public class Post implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(min = 5, max = 20000)
+    @Size(min = 5, max = 30)
+    @Column(nullable = false, length = 30)
     private String subject;
 
+    @NotNull
+    @Size(min = 5, max = 20000)
+    @Column(nullable = false, length = 20000)
     private String body;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -31,7 +35,10 @@ public class Post implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar lastModifiedDate;
 
-    @ManyToOne
+    @NotNull
+    @ManyToOne(optional = false)
+    // this is enough for Hibernate schema generation but for EclipseLink next line is needed
+    @JoinColumn(nullable = false)
     private Author author;
 
     @ElementCollection
@@ -117,9 +124,11 @@ public class Post implements Serializable {
         return Collections.unmodifiableList(this.comments);
     }
 
-    public void addComment(PostComment comment) {
-        comments.add(comment);
-        comment.setPost(this);
+    public void addComment(@NotNull PostComment comment) {
+        if (!comments.contains(comment)) {
+            comments.add(comment);
+            comment.setPost(this);
+        }
     }
 
     public boolean removeComment(PostComment comment) {

@@ -12,14 +12,14 @@
     <artifactId>entities-modeling</artifactId>
 
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-        </dependency>
-        <!--<dependency>
-           <groupId>org.eclipse.persistence</groupId>
+        </dependency>-->
+        <dependency>
+        <groupId>org.eclipse.persistence</groupId>
            <artifactId>org.eclipse.persistence.jpa</artifactId>
-       </dependency>-->
+        </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>

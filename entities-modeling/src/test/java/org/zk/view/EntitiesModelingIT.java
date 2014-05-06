@@ -3,7 +3,7 @@ package org.zk.view;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.fest.assertions.api.Assertions.*;
+import org.zk.entites.Post;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -26,11 +26,21 @@ public class EntitiesModelingIT {
     }
 
     @Test
-	public void testSelectUsage() {
+    public void testPostSave() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
 
-        
+        Post post = new Post();
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
+
+    @Test
+    public void testSelectUsage() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+
 
         entityManager.getTransaction().commit();
         entityManager.close();

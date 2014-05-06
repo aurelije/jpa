@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 @Entity
+@Table(name = "POST_COMMENT")
 public class PostComment implements Serializable {
     private static final long serialVersionUID = 5478374318852831308L;
 
@@ -24,8 +25,23 @@ public class PostComment implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar commentDate;
 
-    @ManyToOne
+    @NotNull
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false)
     private Post post;
+
+    @NotNull
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false)
+    private Author author;
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
 
     public Long getId() {
         return id;
@@ -60,8 +76,9 @@ public class PostComment implements Serializable {
         return Objects.toStringHelper(this)
                 .add("id", id)
                 .add("text", content)
-                .add("post", post)
                 .add("commentDate", commentDate)
+                .add("post", post)
+                .add("author", author)
                 .toString();
     }
 

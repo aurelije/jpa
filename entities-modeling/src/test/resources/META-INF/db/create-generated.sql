@@ -1,12 +1,12 @@
-create table Author (id int8 not null, createdDate timestamp, lastModifiedDate timestamp, userName varchar(20) not null, userPassword varchar(40) not null, primary key (id))
-create table Post (id int8 not null, body varchar(255), createdDate timestamp, lastModifiedDate timestamp, postDate timestamp, subject varchar(255), author_id int8, primary key (id))
-create table PostComment (id int8 not null, commentDate timestamp, content varchar(2000) not null, post_id int8, primary key (id))
-create table Post_Tag (Post_id int8 not null, tags_id int8 not null, primary key (Post_id, tags_id))
-create table Post_images (Post_id int8 not null, filename varchar(255) not null, sizeX int4 not null, sizeY int4 not null, title varchar(30) not null, primary key (Post_id, filename, sizeX, sizeY, title))
-create table Tag (id int8 not null, name varchar(20) not null, primary key (id))
-alter table Post add constraint FK_m7j5gwmpa7dklv5bnc41ertmi foreign key (author_id) references Author
-alter table PostComment add constraint FK_8r9k1y7s1kkj4jc5aoyrli3ic foreign key (post_id) references Post
-alter table Post_Tag add constraint FK_t0ml4xx4nhnqjwrhxugwlvrpm foreign key (tags_id) references Tag
-alter table Post_Tag add constraint FK_ex1oknil4le2tootduvjnllp6 foreign key (Post_id) references Post
-alter table Post_images add constraint FK_e1cctrpwih4egtxo313673h9l foreign key (Post_id) references Post
-create sequence hibernate_sequence start 1 increment 1
+CREATE TABLE POST_COMMENT (ID BIGINT NOT NULL, COMMENTDATE TIMESTAMP, CONTENT VARCHAR(2000) NOT NULL, POST_ID BIGINT, PRIMARY KEY (ID))
+CREATE TABLE POST (ID BIGINT NOT NULL, BODY VARCHAR(20000) NOT NULL, CREATEDDATE TIMESTAMP, LASTMODIFIEDDATE TIMESTAMP, POSTDATE TIMESTAMP, SUBJECT VARCHAR(30) NOT NULL, AUTHOR_ID BIGINT NOT NULL, PRIMARY KEY (ID))
+CREATE TABLE TAG (ID BIGINT NOT NULL, NAME VARCHAR(20) NOT NULL, PRIMARY KEY (ID))
+CREATE TABLE AUTHOR (ID BIGINT NOT NULL, CREATEDDATE TIMESTAMP, LASTMODIFIEDDATE TIMESTAMP, USERNAME VARCHAR(20) NOT NULL, USERPASSWORD VARCHAR(40) NOT NULL, PRIMARY KEY (ID))
+CREATE TABLE Post_IMAGES (FILENAME VARCHAR(255) NOT NULL, SIZEX INTEGER, SIZEY INTEGER, TITLE VARCHAR(30) NOT NULL, Post_ID BIGINT)
+CREATE TABLE POST_TAG (Post_ID BIGINT NOT NULL, tags_ID BIGINT NOT NULL, PRIMARY KEY (Post_ID, tags_ID))
+ALTER TABLE POST_COMMENT ADD CONSTRAINT FK_POST_COMMENT_POST_ID FOREIGN KEY (POST_ID) REFERENCES POST (ID)
+ALTER TABLE POST ADD CONSTRAINT FK_POST_AUTHOR_ID FOREIGN KEY (AUTHOR_ID) REFERENCES AUTHOR (ID)
+ALTER TABLE Post_IMAGES ADD CONSTRAINT FK_Post_IMAGES_Post_ID FOREIGN KEY (Post_ID) REFERENCES POST (ID)
+ALTER TABLE POST_TAG ADD CONSTRAINT FK_POST_TAG_Post_ID FOREIGN KEY (Post_ID) REFERENCES POST (ID)
+ALTER TABLE POST_TAG ADD CONSTRAINT FK_POST_TAG_tags_ID FOREIGN KEY (tags_ID) REFERENCES TAG (ID)
+CREATE SEQUENCE SEQ_GEN_SEQUENCE INCREMENT BY 50 START WITH 50
