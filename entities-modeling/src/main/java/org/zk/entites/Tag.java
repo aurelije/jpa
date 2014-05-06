@@ -2,18 +2,14 @@ package org.zk.entites;
 
 import com.google.common.base.Objects;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 
 @Entity
-public class Tag implements Serializable {
+public class Tag extends BaseEntity {
     private static final long serialVersionUID = 7464310525684640936L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
 
     @NotNull
     @Size(min = 2, max = 20)
@@ -27,11 +23,6 @@ public class Tag implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
-    public Long getId() {
-        return id;
-    }
-
 
     @Override
     public boolean equals(Object o) {
@@ -53,6 +44,8 @@ public class Tag implements Serializable {
         return Objects.toStringHelper(this)
                 .add("id", id)
                 .add("name", name)
+                .add("createdDate", createdDate)
+                .add("lastModifiedDate", lastModifiedDate)
                 .toString();
     }
 }

@@ -5,16 +5,11 @@ import com.google.common.base.Objects;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 import java.util.*;
 
 @Entity
-public class Post implements Serializable {
+public class Post extends BaseEntity {
     private static final long serialVersionUID = 6583871023213001867L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
 
     @NotNull
     @Size(min = 5, max = 30)
@@ -26,15 +21,6 @@ public class Post implements Serializable {
     @Column(nullable = false, length = 20000)
     private String body;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Calendar postDate;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Calendar createdDate;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Calendar lastModifiedDate;
-
     @NotNull
     @ManyToOne(optional = false)
     // this is enough for Hibernate schema generation but for EclipseLink next line is needed
@@ -45,7 +31,7 @@ public class Post implements Serializable {
     private Set<Image> images = new HashSet<>();
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    @OrderBy("commentDate ASC")
+    @OrderBy("createdDate ASC")
     // TODO try with SortedSet
     private List<PostComment> comments = new ArrayList<>();
 
@@ -76,14 +62,6 @@ public class Post implements Serializable {
         this.author = author;
     }
 
-    public Calendar getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(Calendar lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
-
     public String getSubject() {
         return subject;
     }
@@ -98,26 +76,6 @@ public class Post implements Serializable {
 
     public void setBody(String body) {
         this.body = body;
-    }
-
-    public Calendar getPostDate() {
-        return postDate;
-    }
-
-    public void setPostDate(Calendar postDate) {
-        this.postDate = postDate;
-    }
-
-    public Calendar getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Calendar createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public List<PostComment> getComments() {
@@ -147,7 +105,6 @@ public class Post implements Serializable {
                 .add("id", id)
                 .add("subject", subject)
                 .add("body", body)
-                .add("postDate", postDate)
                 .add("author", author)
                 .add("createdDate", createdDate)
                 .add("lastModifiedDate", lastModifiedDate)
@@ -163,13 +120,11 @@ public class Post implements Serializable {
 
         return Objects.equal(this.subject, that.subject) &&
                 Objects.equal(this.body, that.body) &&
-                Objects.equal(this.postDate, that.postDate) &&
-                Objects.equal(this.createdDate, that.createdDate) &&
-                Objects.equal(this.lastModifiedDate, that.lastModifiedDate);
+                Objects.equal(this.createdDate, that.createdDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(subject, body, postDate, createdDate, lastModifiedDate);
+        return Objects.hashCode(subject, body, createdDate);
     }
 }

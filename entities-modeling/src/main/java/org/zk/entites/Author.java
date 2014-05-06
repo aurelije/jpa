@@ -2,20 +2,18 @@ package org.zk.entites;
 
 import com.google.common.base.Objects;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 import java.util.Calendar;
 
 @Entity
-public class Author implements Serializable {
+public class Author extends BaseEntity {
 
     private static final long serialVersionUID = -3406541862852082421L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
 
     @NotNull
     @Size(min = 6, max = 40)
@@ -30,8 +28,6 @@ public class Author implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar createdDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Calendar lastModifiedDate;
 
     public String getUserPassword() {
         return userPassword;
@@ -39,26 +35,6 @@ public class Author implements Serializable {
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
-    }
-
-    public Calendar getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Calendar createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Calendar getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(Calendar lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getUserName() {
@@ -78,14 +54,12 @@ public class Author implements Serializable {
         Author that = (Author) o;
 
         return Objects.equal(this.userPassword, that.userPassword) &&
-                Objects.equal(this.userName, that.userName) &&
-                Objects.equal(this.createdDate, that.createdDate) &&
-                Objects.equal(this.lastModifiedDate, that.lastModifiedDate);
+                Objects.equal(this.userName, that.userName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(userPassword, userName, createdDate, lastModifiedDate);
+        return Objects.hashCode(userPassword, userName);
     }
 
     @Override

@@ -5,25 +5,16 @@ import com.google.common.base.Objects;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
-import java.util.Calendar;
 
 @Entity
 @Table(name = "POST_COMMENT")
-public class PostComment implements Serializable {
+public class PostComment extends BaseEntity {
     private static final long serialVersionUID = 5478374318852831308L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    Long id;
 
     @NotNull
     @Size(min = 2, max = 2000)
     @Column(nullable = false, length = 2000)
     private String content;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Calendar commentDate;
 
     @NotNull
     @ManyToOne(optional = false)
@@ -43,24 +34,12 @@ public class PostComment implements Serializable {
         this.author = author;
     }
 
-    public Long getId() {
-        return id;
-    }
-
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public Calendar getCommentDate() {
-        return commentDate;
-    }
-
-    public void setCommentDate(Calendar commentDate) {
-        this.commentDate = commentDate;
     }
 
     public Post getPost() {
@@ -76,7 +55,8 @@ public class PostComment implements Serializable {
         return Objects.toStringHelper(this)
                 .add("id", id)
                 .add("text", content)
-                .add("commentDate", commentDate)
+                .add("createdDate", createdDate)
+                .add("lastModifiedDate", lastModifiedDate)
                 .add("post", post)
                 .add("author", author)
                 .toString();
@@ -90,11 +70,11 @@ public class PostComment implements Serializable {
         PostComment that = (PostComment) o;
 
         return Objects.equal(this.content, that.content) &&
-                Objects.equal(this.commentDate, that.commentDate);
+                Objects.equal(this.createdDate, that.createdDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(content, commentDate);
+        return Objects.hashCode(content, createdDate);
     }
 }
