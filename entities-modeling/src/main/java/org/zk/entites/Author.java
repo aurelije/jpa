@@ -4,11 +4,8 @@ import com.google.common.base.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.util.Calendar;
+import javax.validation.constraints.Pattern;
 
 @Entity
 public class Author extends BaseEntity {
@@ -16,18 +13,14 @@ public class Author extends BaseEntity {
     private static final long serialVersionUID = -3406541862852082421L;
 
     @NotNull
-    @Size(min = 6, max = 40)
+    @Pattern(regexp = "\\S{6,40}")
     @Column(nullable = false, length = 40)
     private String userPassword;
 
     @NotNull
-    @Size(min = 3, max = 20)
+    @Pattern(regexp = "\\w{3,20}")
     @Column(nullable = false, length = 20)
     private String userName;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Calendar createdDate;
-
 
     public String getUserPassword() {
         return userPassword;

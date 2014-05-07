@@ -3,6 +3,7 @@ package org.zk.view;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.zk.entites.Author;
 import org.zk.entites.Post;
 
 import javax.persistence.EntityManager;
@@ -26,11 +27,23 @@ public class EntitiesModelingIT {
     }
 
     @Test
-    public void testPostSave() {
+    public void testPostSaveSuccessful() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
 
         Post post = new Post();
+        Author author = new Author();
+
+        author.setUserName("testUser");
+        author.setUserPassword("password");
+
+        entityManager.persist(author);
+
+        post.setAuthor(author);
+        post.setSubject("subject");
+        post.setBody("This is a body\nof this blog post");
+
+        entityManager.persist(post);
 
         entityManager.getTransaction().commit();
         entityManager.close();

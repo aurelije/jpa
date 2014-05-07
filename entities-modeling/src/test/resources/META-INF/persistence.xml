@@ -9,8 +9,9 @@
             Persistence unit for the JPA tutorial of the Hibernate Getting Started Guide
         </description>
 
-        <!--        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
+        <!--<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <class>org.zk.entites.BaseEntity</class>
         <class>org.zk.entites.PostComment</class>
         <class>org.zk.entites.Image</class>
         <class>org.zk.entites.Post</class>
@@ -30,7 +31,11 @@
              <property name="javax.persistence.jdbc.user" value="sa"/>
              <property name="javax.persistence.jdbc.password" value=""/> -->
 
+            <!--Set up logging for Hibernate and EclipseLink-->
             <property name="hibernate.show_sql" value="true"/>
+            <property name="eclipselink.logging.level" value="FINE"/>
+            <property name="eclipselink.logging.level.sql" value="FINE"/>
+            <property name="eclipselink.logging.parameters" value="true"/>
             <!-- <property name="hibernate.hbm2ddl.auto" value="validate"/> -->
             <!--
 
@@ -53,8 +58,10 @@
             <!-- <property name="javax.persistence.schema-generation.create-script-source" value="META-INF/db/createDbInput.sql"/>
             <property name="javax.persistence.schema-generation.drop-script-source" value="META-INF/db/dropDbInput.sql"/> -->
             <property name="javax.persistence.schema-generation.scripts.action" value="drop-and-create"/>
-            <property name="javax.persistence.schema-generation.scripts.create-target" value="src/test/resources/META-INF/db/create-generated.sql"/>
-            <property name="javax.persistence.schema-generation.scripts.drop-target" value="src/test/resources/META-INF/db/drop-generated.sql"/>
+            <property name="javax.persistence.schema-generation.scripts.create-target"
+                      value="/home/zkadragic/playground/JPA/JPAPresentation/entities-modeling/src/test/resources/META-INF/db/create-generated.sql"/>
+            <property name="javax.persistence.schema-generation.scripts.drop-target"
+                      value="/home/zkadragic/playground/JPA/JPAPresentation/entities-modeling/src/test/resources/META-INF/db/drop-generated.sql"/>
             <property name="javax.persistence.schema-generation.create-source" value="metadata"/>
             <property name="javax.persistence.schema-generation.drop-source" value="metadata"/>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
