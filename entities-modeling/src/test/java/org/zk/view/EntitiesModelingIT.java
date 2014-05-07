@@ -1,5 +1,6 @@
 package org.zk.view;
 
+import org.fest.assertions.api.Assertions;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,12 +16,12 @@ public class EntitiesModelingIT {
     EntityManagerFactory entityManagerFactory;
 
     @Before
-	public void setUp() throws Exception {
+    public void setUp() {
         entityManagerFactory = Persistence.createEntityManagerFactory("org.zk.jpa");
 	}
 
     @After
-	public void tearDown() throws Exception {
+    public void tearDown() {
         if (entityManagerFactory != null) {
             entityManagerFactory.close();
         }
@@ -44,6 +45,18 @@ public class EntitiesModelingIT {
         post.setBody("This is a body\nof this blog post");
 
         entityManager.persist(post);
+
+        Long postId = post.getId();
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
+
+        entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+
+        Post foundPost = entityManager.find(Post.class, postId);
+
+        Assertions.assertThat(post.equals(foundPost)).isTrue();
 
         entityManager.getTransaction().commit();
         entityManager.close();
