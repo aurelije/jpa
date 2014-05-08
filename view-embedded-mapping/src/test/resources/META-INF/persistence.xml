@@ -8,8 +8,8 @@
         <description>
             Persistence unit for the JPA tutorial of the Hibernate Getting Started Guide
         </description>
-<!--         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider> -->
-        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <!--        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
 
         <class>org.zk.view.TestEntityAggregate</class>
         <class>org.zk.view.TestEntity</class>

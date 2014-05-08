@@ -11,12 +11,12 @@
 
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <class>org.zk.entites.Author</class>
-        <class>org.zk.entites.Image</class>
-        <class>org.zk.entites.Post</class>
-        <class>org.zk.entites.PostComment</class>
-        <class>org.zk.entites.Tag</class>
-        
+        <class>org.zk.entities.Author</class>
+        <class>org.zk.entities.Image</class>
+        <class>org.zk.entities.Post</class>
+        <class>org.zk.entities.PostComment</class>
+        <class>org.zk.entities.Tag</class>
+
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql:test"/>
@@ -43,13 +43,13 @@
 
              -->
             <property name="hibernate.id.new_generator_mappings" value="true"/>
-<!--             <property name="javax.persistence.schema-generation.create-script-source" value="META-INF/db/createDbInput.sql"/> -->
-<!--             <property name="javax.persistence.schema-generation.drop-script-source" value="META-INF/db/dropDbInput.sql"/> -->
-<!--             <property name="javax.persistence.schema-generation.create-source" value="script"/> -->
-<!--             <property name="javax.persistence.schema-generation.drop-source" value="script"/> -->
-<!--             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/> -->
-<!--             <property name="javax.persistence.schema-generation.create-database-schemas" value="false"/> -->
-<!--             <property name="javax.persistence.sql-load-script-source" value="META-INF/db/dataInput.sql"/> -->
+            <!--             <property name="javax.persistence.schema-generation.create-script-source" value="META-INF/db/createDbInput.sql"/> -->
+            <!--             <property name="javax.persistence.schema-generation.drop-script-source" value="META-INF/db/dropDbInput.sql"/> -->
+            <!--             <property name="javax.persistence.schema-generation.create-source" value="script"/> -->
+            <!--             <property name="javax.persistence.schema-generation.drop-source" value="script"/> -->
+            <!--             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/> -->
+            <!--             <property name="javax.persistence.schema-generation.create-database-schemas" value="false"/> -->
+            <!--             <property name="javax.persistence.sql-load-script-source" value="META-INF/db/dataInput.sql"/> -->
         </properties>
     </persistence-unit>
 

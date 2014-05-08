@@ -12,13 +12,13 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <!--<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
 
-        <class>org.zk.entites.BaseEntity</class>
-        <class>org.zk.entites.PostComment</class>
-        <class>org.zk.entites.Image</class>
-        <class>org.zk.entites.Post</class>
-        <class>org.zk.entites.Tag</class>
-        <class>org.zk.entites.Author</class>
-        
+        <class>org.zk.entities.BaseEntity</class>
+        <class>org.zk.entities.PostComment</class>
+        <class>org.zk.entities.Image</class>
+        <class>org.zk.entities.Post</class>
+        <class>org.zk.entities.Tag</class>
+        <class>org.zk.entities.Author</class>
+
         <properties>
             <!-- PostgreSQL configuration -->
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>

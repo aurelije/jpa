@@ -1,4 +1,4 @@
-package org.zk.entites;
+package org.zk.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
