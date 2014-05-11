@@ -13,7 +13,7 @@
 
     <dependencies>
         <dependency>
-        <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
         </dependency>
         <!--<dependency>
@@ -25,7 +25,15 @@
             <artifactId>hibernate-validator</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
+            <groupId>javax.el</groupId>
+            <artifactId>javax.el-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.el</artifactId>
+        </dependency>
+        <dependency>
+        <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
         </dependency>
         <dependency>
@@ -41,15 +49,15 @@
             <artifactId>junit</artifactId>
         </dependency>
         <dependency>
-   			<groupId>org.easytesting</groupId>
-   			<artifactId>fest-assert-core</artifactId>
-		</dependency>
+            <groupId>org.easytesting</groupId>
+            <artifactId>fest-assert-core</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
         </dependency>
     </dependencies>
-    
+
     <build>
         <plugins>
             <plugin>

@@ -20,6 +20,7 @@
         <version.postgres>9.3-1101-jdbc41</version.postgres>
         <version.slf4j>1.7.7</version.slf4j>
         <version.hibernate>4.3.5.Final</version.hibernate>
+        <version.expressionlanguage>3.0.0</version.expressionlanguage>
 
         <version.h2>1.4.177</version.h2>
 
@@ -63,6 +64,16 @@
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
                 <version>${version.hibernate.validator}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.el</groupId>
+                <artifactId>javax.el-api</artifactId>
+                <version>${version.expressionlanguage}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish</groupId>
+                <artifactId>javax.el</artifactId>
+                <version>${version.expressionlanguage}</version>
             </dependency>
 
             <!-- Hibernate uses jboss-logging for logging, for the tutorials we will use the sl4fj-simple backend -->
