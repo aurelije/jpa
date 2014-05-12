@@ -39,7 +39,7 @@ public class Image implements Serializable {
         this.sizeY = sizeY;
     }
 
-    protected Image() {
+    private Image() {
         // to keep JPA providers happy
     }
 

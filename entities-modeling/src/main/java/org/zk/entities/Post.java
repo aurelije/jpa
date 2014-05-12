@@ -42,16 +42,16 @@ public class Post extends BaseEntity {
         return images;
     }
 
-    public void setImages(Set<Image> images) {
-        this.images = images;
+    public void addImage(Image image) {
+        images.add(image);
     }
 
     public Set<Tag> getTags() {
-        return tags;
+        return Collections.unmodifiableSet(tags);
     }
 
-    public void setTags(Set<Tag> tags) {
-        this.tags = tags;
+    public void addTag(Tag tag) {
+        tags.add(tag);
     }
 
     public Author getAuthor() {
