@@ -180,7 +180,6 @@ public class EntitiesModelingIT {
             throw e;
         } finally {
             if (entityManager.isOpen()) {
-                entityManager.getTransaction().rollback();
                 entityManager.close();
             }
         }
