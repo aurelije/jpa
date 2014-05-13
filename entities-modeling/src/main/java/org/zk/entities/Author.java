@@ -13,7 +13,7 @@ public class Author extends BaseEntity {
     private static final long serialVersionUID = -3406541862852082421L;
 
     @NotNull
-    @Pattern(regexp = "^\\w{3,20}$")//,  message = "org.zk.entities.Author.userPassword.invalidPattern")
+    @Pattern(regexp = "^\\w{3,20}$",  message = "org.zk.entities.Author.userPassword.invalidPattern")
     @Column(nullable = false, length = 20)
     private String userName;
 
