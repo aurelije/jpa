@@ -229,6 +229,45 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <testResources>
+            <testResource>
+                <directory>${project.basedir}/src/test/resource</directory>
+            </testResource>
+            <testResource>
+                <filtering>true</filtering>
+                <directory>profiles/${environment}</directory>
+            </testResource>
+        </testResources>
     </build>
+
+    <profiles>
+        <profile>
+            <id>eclipselink-h2</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <environment>eclipselink-h2</environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>eclipselink-pgsql</id>
+            <properties>
+                <environment>eclipselink-pgsql</environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>hibernate-h2</id>
+            <properties>
+                <environment>hibernate-h2</environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>hibernate-pgsql</id>
+            <properties>
+                <environment>hibernate-pgsql</environment>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>

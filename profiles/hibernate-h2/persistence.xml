@@ -1,0 +1,67 @@
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             version="2.1"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+
+
+    <persistence-unit name="org.zk.jpa" transaction-type="RESOURCE_LOCAL">
+        <description>
+            Persistence unit for the JPA tutorial
+        </description>
+
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <class>org.zk.entities.BaseEntity</class>
+        <class>org.zk.entities.PostComment</class>
+        <class>org.zk.entities.Image</class>
+        <class>org.zk.entities.Post</class>
+        <class>org.zk.entities.Tag</class>
+        <class>org.zk.entities.Author</class>
+
+        <properties>
+            <!-- H2Database configuration -->
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:~/test;MODE=PostgreSQL"/>
+            <property name="javax.persistence.jdbc.user" value="sa"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
+
+            <!-- force PostgresSQL dialect even when used against H2 but H2 is in PostgresSQL mode -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect"/>
+
+            <!-- Set up logging for Hibernate -->
+            <property name="hibernate.show_sql" value="true"/>
+
+            <!--
+
+            Use a new Hibernate 3.2.3+ generators
+
+            In Hibernate 4.x, if new_generator_mappings is true:
+
+            @GeneratedValue(AUTO) maps to org.hibernate.id.enhanced.SequenceStyleGenerator
+            @GeneratedValue(TABLE) maps to org.hibernate.id.enhanced.TableGenerator
+            @GeneratedValue(SEQUENCE) maps to org.hibernate.id.enhanced.SequenceStyleGenerator
+
+            In Hibernate 4.x, if new_generator_mappings is false:
+
+            @GeneratedValue(AUTO) maps to Hibernate "native"
+            @GeneratedValue(TABLE) maps to org.hibernate.id.MultipleHiLoPerTableGenerator
+            @GeneratedValue(SEQUENCE) to Hibernate "seqhilo"
+
+             -->
+            <property name="hibernate.id.new_generator_mappings" value="true"/>
+            <!-- <property name="javax.persistence.schema-generation.create-script-source" value="META-INF/db/createDbInput.sql"/>
+            <property name="javax.persistence.schema-generation.drop-script-source" value="META-INF/db/dropDbInput.sql"/> -->
+            <property name="javax.persistence.schema-generation.scripts.action" value="drop-and-create"/>
+            <property name="javax.persistence.schema-generation.scripts.create-target"
+                      value="/home/zkadragic/playground/JPA/JPAPresentation/entities-modeling/src/test/resources/META-INF/db/create-generated.sql"/>
+            <property name="javax.persistence.schema-generation.scripts.drop-target"
+                      value="/home/zkadragic/playground/JPA/JPAPresentation/entities-modeling/src/test/resources/META-INF/db/drop-generated.sql"/>
+            <property name="javax.persistence.schema-generation.create-source" value="metadata"/>
+            <property name="javax.persistence.schema-generation.drop-source" value="metadata"/>
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <property name="javax.persistence.schema-generation.create-database-schemas" value="false"/>
+            <!-- <property name="javax.persistence.sql-load-script-source" value="META-INF/db/dataInput.sql"/> -->
+        </properties>
+    </persistence-unit>
+
+</persistence>
