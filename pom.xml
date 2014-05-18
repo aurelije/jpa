@@ -14,12 +14,13 @@
 
     <properties>
         <version.java>1.7</version.java>
+        <version.jpa.api>2.1.0</version.jpa.api>
         <version.eclipselink>2.5.1</version.eclipselink>
+        <version.hibernate>4.3.5.Final</version.hibernate>
         <version.hibernate.validator>5.1.0.Final</version.hibernate.validator>
 
         <version.postgres>9.3-1101-jdbc41</version.postgres>
         <version.slf4j>1.7.7</version.slf4j>
-        <version.hibernate>4.3.5.Final</version.hibernate>
         <version.expressionlanguage>3.0.0</version.expressionlanguage>
 
         <version.h2>1.4.177</version.h2>
@@ -31,6 +32,7 @@
         <skipITs>${skipTests}</skipITs>
         <skipUTs>${skipTests}</skipUTs>
         <version.junit>4.11</version.junit>
+        <version.testng>6.8.8</version.testng>
         <version.fest.assert>2.0M10</version.fest.assert>
 
         <!-- Skip artifact deployment -->
@@ -46,15 +48,28 @@
         <module>entities-modeling</module>
     </modules>
 
-
     <dependencyManagement>
         <dependencies>
-            <!-- Hibernate -->
+            <!--
+            JPA api, doesn't have anything with eclipse, just an API,
+
+            There is no vendor independent artifact because of licences
+             -->
             <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-core</artifactId>
-                <version>${version.hibernate}</version>
+                <groupId>org.eclipse.persistence</groupId>
+                <artifactId>javax.persistence</artifactId>
+                <version>${version.jpa.api}</version>
             </dependency>
+
+            <!--
+            Another JPA API but the version of api is coded into artifact name and I don't like that -->
+            <!--<dependency>
+                <groupId>org.hibernate.javax.persistence</groupId>
+                <artifactId>hibernate-jpa-2.1-api</artifactId>
+                <version>1.0.0.Final</version>
+            </dependency>-->
+
+            <!-- Hibernate -->
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-entitymanager</artifactId>
@@ -90,9 +105,16 @@
                 <version>${version.junit}</version>
                 <scope>test</scope>
             </dependency>
-            
+
             <dependency>
-            	<groupId>org.easytesting</groupId>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>${version.testng}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+            <groupId>org.easytesting</groupId>
    				<artifactId>fest-assert-core</artifactId>
    				<version>${version.fest.assert}</version>
    				<scope>test</scope>
@@ -229,16 +251,32 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-        <testResources>
-            <testResource>
-                <directory>${project.basedir}/src/test/resource</directory>
-            </testResource>
-            <testResource>
+
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+            <resource>
                 <filtering>true</filtering>
-                <directory>profiles/${environment}</directory>
-            </testResource>
-        </testResources>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <filtering>true</filtering>
+                <directory>../profiles/${environment}</directory>
+            </resource>
+        </resources>
     </build>
+
+    <dependencies>
+        <!-- JPA api -->
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>javax.persistence</artifactId>
+        </dependency>
+    </dependencies>
 
     <profiles>
         <profile>
@@ -249,24 +287,66 @@
             <properties>
                 <environment>eclipselink-h2</environment>
             </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.eclipse.persistence</groupId>
+                    <artifactId>org.eclipse.persistence.jpa</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
         </profile>
         <profile>
             <id>eclipselink-pgsql</id>
             <properties>
                 <environment>eclipselink-pgsql</environment>
             </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.eclipse.persistence</groupId>
+                    <artifactId>org.eclipse.persistence.jpa</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                </dependency>
+            </dependencies>
         </profile>
         <profile>
             <id>hibernate-h2</id>
             <properties>
                 <environment>hibernate-h2</environment>
             </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-entitymanager</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
         </profile>
         <profile>
             <id>hibernate-pgsql</id>
             <properties>
                 <environment>hibernate-pgsql</environment>
             </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-entitymanager</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                </dependency>
+            </dependencies>
         </profile>
     </profiles>
 

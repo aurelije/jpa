@@ -1,22 +1,26 @@
 package org.zk.entities;
 
 import org.fest.assertions.api.Assertions;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.RollbackException;
+import javax.validation.ConstraintViolationException;
 
 
 public class EntitiesModelingIT {
     EntityManagerFactory entityManagerFactory;
 
-    @Before
+    @BeforeMethod
     public void setUp() {
         entityManagerFactory = Persistence.createEntityManagerFactory("org.zk.jpa");
     }
 
-    @After
+    @AfterMethod
     public void tearDown() {
         if (entityManagerFactory != null) {
             entityManagerFactory.close();
@@ -110,8 +114,9 @@ public class EntitiesModelingIT {
         entityManager.close();
     }
 
-
-    @Test(expected = PersistenceException.class)
+    // Stupid Hibernate throws RollbackException and disobeys JPA specification
+    // the bug is reported but they won't fix it: https://hibernate.atlassian.net/browse/HHH-8028
+    @Test(expectedExceptions = {ConstraintViolationException.class, RollbackException.class})
     public void postSaveUnsuccessfulNoAuthor() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
@@ -138,6 +143,8 @@ public class EntitiesModelingIT {
             // javax.persistence.PersistenceException: org.hibernate.PropertyValueException: not-null property references a null or transient value : org.zk.entities.Post.author
 
         } catch (Exception e) {
+            System.err.println("EntitiesModelingIT.postSaveUnsuccessfulNoAuthor");
+            System.err.println("e.toString() + \" \n\" + e.getMessage() = " + e.toString() + " \n" + e.getMessage());
             if (entityManager.isOpen() && entityManager.getTransaction().isActive()) {
                 entityManager.getTransaction().rollback();
             }
@@ -149,7 +156,8 @@ public class EntitiesModelingIT {
         }
     }
 
-    @Test(expected = IllegalStateException.class)
+    // Stupid Hibernate throws IllegalStateException but should wrap that into RollbackException as EclipseLink does
+    @Test(expectedExceptions = {RollbackException.class, IllegalStateException.class})
     public void postSaveUnsuccessfulNoCascadeToAuthor() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
@@ -174,18 +182,24 @@ public class EntitiesModelingIT {
             // results in :
             // java.lang.IllegalStateException: org.hibernate.TransientPropertyValueException: Not-null property references a transient value - transient instance must be saved before current operation : org.zk.entities.Post.author -> org.zk.entities.Author
         } catch (Exception e) {
+            System.err.println("EntitiesModelingIT.postSaveUnsuccessfulNoCascadeToAuthor");
+            System.err.println("e.toString() + \"\n \" + e.getMessage() = " + e.toString() + " \n" + e.getMessage());
             if (entityManager.isOpen() && entityManager.getTransaction().isActive()) {
+                System.err.println("before rollback");
                 entityManager.getTransaction().rollback();
+                System.err.println("after rollback");
             }
             throw e;
         } finally {
             if (entityManager.isOpen()) {
+                System.err.println("before close");
                 entityManager.close();
+                System.err.println("after close");
             }
         }
     }
 
-    @Test(expected = RollbackException.class)
+    @Test(expectedExceptions = {ConstraintViolationException.class, RollbackException.class})
     public void postSaveUnsuccessfulUserNameNotValid() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
@@ -217,6 +231,8 @@ public class EntitiesModelingIT {
             //     ]
 
         } catch (Exception e) {
+            System.err.println("EntitiesModelingIT.postSaveUnsuccessfulUserNameNotValid");
+            System.err.println("e.toString() + \"\n \" + e.getMessage() = " + e.toString() + " \n" + e.getMessage());
             if (entityManager.isOpen() && entityManager.getTransaction().isActive()) {
                 entityManager.getTransaction().rollback();
             }
