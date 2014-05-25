@@ -60,7 +60,7 @@
             <property name="javax.persistence.schema-generation.drop-source" value="metadata"/>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
             <property name="javax.persistence.schema-generation.create-database-schemas" value="false"/>
-            <!-- <property name="javax.persistence.sql-load-script-source" value="META-INF/db/dataInput.sql"/> -->
+            <property name="javax.persistence.sql-load-script-source" value="META-INF/db/dataInput.sql"/>
         </properties>
     </persistence-unit>
 
