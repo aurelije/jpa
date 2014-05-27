@@ -145,8 +145,14 @@ public class EntitiesModelingIT {
         } catch (Exception e) {
             System.err.println("EntitiesModelingIT.postSaveUnsuccessfulNoAuthor");
             System.err.println("e.toString() + \" \n\" + e.getMessage() = " + e.toString() + " \n" + e.getMessage());
-            if (entityManager.isOpen() && entityManager.getTransaction().isActive()) {
-                entityManager.getTransaction().rollback();
+
+            try {
+                if (entityManager.isOpen() && entityManager.getTransaction().isActive() && entityManager.getTransaction().getRollbackOnly()) {
+                    entityManager.getTransaction().rollback();
+                }
+            } catch (Exception rbEx) {
+                System.err.println("Rollback of transaction failed, trace follows!");
+                rbEx.printStackTrace(System.err);
             }
             throw e;
         } finally {
@@ -184,17 +190,18 @@ public class EntitiesModelingIT {
         } catch (Exception e) {
             System.err.println("EntitiesModelingIT.postSaveUnsuccessfulNoCascadeToAuthor");
             System.err.println("e.toString() + \"\n \" + e.getMessage() = " + e.toString() + " \n" + e.getMessage());
-            if (entityManager.isOpen() && entityManager.getTransaction().isActive()) {
-                System.err.println("before rollback");
-                entityManager.getTransaction().rollback();
-                System.err.println("after rollback");
+            try {
+                if (entityManager.isOpen() && entityManager.getTransaction().isActive() && entityManager.getTransaction().getRollbackOnly()) {
+                    entityManager.getTransaction().rollback();
+                }
+            } catch (Exception rbEx) {
+                System.err.println("Rollback of transaction failed, trace follows!");
+                rbEx.printStackTrace(System.err);
             }
             throw e;
         } finally {
             if (entityManager.isOpen()) {
-                System.err.println("before close");
                 entityManager.close();
-                System.err.println("after close");
             }
         }
     }
@@ -233,8 +240,13 @@ public class EntitiesModelingIT {
         } catch (Exception e) {
             System.err.println("EntitiesModelingIT.postSaveUnsuccessfulUserNameNotValid");
             System.err.println("e.toString() + \"\n \" + e.getMessage() = " + e.toString() + " \n" + e.getMessage());
-            if (entityManager.isOpen() && entityManager.getTransaction().isActive()) {
-                entityManager.getTransaction().rollback();
+            try {
+                if (entityManager.isOpen() && entityManager.getTransaction().isActive() && entityManager.getTransaction().getRollbackOnly()) {
+                    entityManager.getTransaction().rollback();
+                }
+            } catch (Exception rbEx) {
+                System.err.println("Rollback of transaction failed, trace follows!");
+                rbEx.printStackTrace(System.err);
             }
             throw e;
         } finally {
