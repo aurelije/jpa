@@ -4,7 +4,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.seavus.presentation</groupId>
+    <groupId>org.zk.presentation</groupId>
     <artifactId>jpa</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -18,6 +18,7 @@
         <version.eclipselink>2.5.1</version.eclipselink>
         <version.hibernate>4.3.5.Final</version.hibernate>
         <version.hibernate.validator>5.1.0.Final</version.hibernate.validator>
+        <version.btm>2.1.4</version.btm>
 
         <version.postgres>9.3-1101-jdbc41</version.postgres>
         <version.slf4j>1.7.7</version.slf4j>
@@ -44,8 +45,9 @@
     </properties>
 
     <modules>
-        <module>view-embedded-mapping</module>
+        <!--<module>view-embedded-mapping</module>-->
         <module>entities-modeling</module>
+        <module>environment</module>
     </modules>
 
     <dependencyManagement>
@@ -142,6 +144,13 @@
                 <scope>test</scope>
             </dependency>
 
+            <!-- In Java SE you should use a JTA transaction manager as a JDBC connection pool, Bitronix is good -->
+            <dependency>
+                <groupId>org.codehaus.btm</groupId>
+                <artifactId>btm</artifactId>
+                <version>${version.btm}</version>
+            </dependency>
+
             <!-- Utilities -->
             <dependency>
                 <groupId>com.google.guava</groupId>
@@ -168,7 +177,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <skipTests>${skipUTs}</skipTests>
-                    <argLine>-Duser.language=en -Duser.country=EN</argLine>
+                    <argLine>-Duser.language=en -Duser.country=EN -DdatabaseProduct=${databaseProduct}</argLine>
                 </configuration>
             </plugin>
             <plugin>
@@ -177,7 +186,7 @@
                 <configuration>
                     <skipTests>${skipTests}</skipTests>
                     <skipITs>${skipITs}</skipITs>
-                    <argLine>-Duser.language=en -Duser.country=EN</argLine>
+                    <argLine>-Duser.language=en -Duser.country=EN -DdatabaseProduct=${databaseProduct}</argLine>
                 </configuration>
                 <executions>
                     <execution>
@@ -286,6 +295,7 @@
             </activation>
             <properties>
                 <environment>eclipselink-h2</environment>
+                <databaseProduct>h2</databaseProduct>
             </properties>
             <dependencies>
                 <dependency>
@@ -303,6 +313,7 @@
             <id>eclipselink-pgsql</id>
             <properties>
                 <environment>eclipselink-pgsql</environment>
+                <databaseProduct>PostgreSQL</databaseProduct>
             </properties>
             <dependencies>
                 <dependency>
@@ -319,6 +330,7 @@
             <id>hibernate-h2</id>
             <properties>
                 <environment>hibernate-h2</environment>
+                <databaseProduct>h2</databaseProduct>
             </properties>
             <dependencies>
                 <dependency>
@@ -336,6 +348,7 @@
             <id>hibernate-pgsql</id>
             <properties>
                 <environment>hibernate-pgsql</environment>
+                <databaseProduct>PostgreSQL</databaseProduct>
             </properties>
             <dependencies>
                 <dependency>
