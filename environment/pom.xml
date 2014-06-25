@@ -17,7 +17,12 @@
             <artifactId>btm</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.testng</groupId>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>${version.eclipselink}</version>
+        </dependency>
+        <dependency>
+        <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <scope>compile</scope>
         </dependency>

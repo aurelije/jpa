@@ -42,7 +42,7 @@ public class TransactionManagerSetup {
         //TransactionManagerServices.getConfiguration().setJournal("null");
 
         logger.fine("Disabling warnings when the database isn't accessed in a transaction");
-        TransactionManagerServices.getConfiguration().setWarnAboutZeroResourceTransaction(false);
+        TransactionManagerServices.getConfiguration().setWarnAboutZeroResourceTransaction(true);
 
         logger.fine("Setting timeout to " + DEFAULT_TRANSACTION_TIMEOUT);
         TransactionManagerServices.getConfiguration().setDefaultTransactionTimeout(DEFAULT_TRANSACTION_TIMEOUT);
@@ -55,6 +55,7 @@ public class TransactionManagerSetup {
         datasource.setPreparedStatementCacheSize(10);
         datasource.setIsolationLevel("READ_COMMITTED");
         datasource.setAllowLocalTransactions(true);
+        datasource.setEnableJdbc4ConnectionTest(true);
 
         String dbEngine = System.getProperty("databaseProduct");
         DatabaseProduct databaseProduct = DatabaseProduct.valueOf(dbEngine.toUpperCase());

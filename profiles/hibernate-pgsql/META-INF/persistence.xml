@@ -4,12 +4,14 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 
 
-    <persistence-unit name="org.zk.jpa" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="org.zk.jpa" transaction-type="JTA">
         <description>
             Persistence unit for the JPA tutorial
         </description>
 
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <jta-data-source>myDS</jta-data-source>
 
         <class>org.zk.entities.BaseEntity</class>
         <class>org.zk.entities.PostComment</class>
@@ -20,13 +22,19 @@
 
         <properties>
             <!-- PostgreSQL configuration -->
-            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <!--<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql:test"/>
             <property name="javax.persistence.jdbc.user" value="nonadmin"/>
-            <property name="javax.persistence.jdbc.password" value="nonadmin"/>
+            <property name="javax.persistence.jdbc.password" value="nonadmin"/>-->
+            <!--<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect"/>-->
 
             <!-- Set up logging for Hibernate -->
             <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.use_sql_comments" value="true"/>
+
+            <property name="hibernate.archive.autodetection" value="none"/>
+
+            <!--<property name="hibernate.transaction.jta.platform" value="org.hibernate.engine.transaction.jta.platform.internal.BitronixJtaPlatform"/>-->
 
             <!--
 
