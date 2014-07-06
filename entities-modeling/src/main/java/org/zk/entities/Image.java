@@ -1,12 +1,7 @@
 package org.zk.entities;
 
-import com.google.common.base.Objects;
-
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.validation.constraints.Min;
+import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -24,19 +19,17 @@ public class Image implements Serializable {
     @NotNull
     @Size(min = 2, max = 255)
     @Column(nullable = false)
-    private String file­name;
+    private String fileName;
 
-    @Min(1)
-    private int sizeX;
+    @Valid
+    @NotNull
+    @Embedded
+    private Point point;
 
-    @Min(1)
-    private int sizeY;
-
-    public Image(String title, String file­name, int sizeX, int sizeY) {
+    public Image(String title, String fileName, Point point) {
         this.title = title;
-        this.file­name = file­name;
-        this.sizeX = sizeX;
-        this.sizeY = sizeY;
+        this.fileName = fileName;
+        this.point = this.point;
     }
 
     private Image() {
@@ -47,43 +40,29 @@ public class Image implements Serializable {
         return title;
     }
 
-    public String getFile­name() {
-        return file­name;
+    public String getFileName() {
+        return fileName;
     }
 
-    public int getSizeX() {
-        return sizeX;
-    }
-
-    public int getSizeY() {
-        return sizeY;
+    public Point getPoint() {
+        return point;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Image)) return false;
 
         Image that = (Image) o;
 
-        return com.google.common.base.Objects.equal(this.title, that.title) &&
-                com.google.common.base.Objects.equal(this.file­name, that.file­name) &&
-                com.google.common.base.Objects.equal(this.sizeX, that.sizeX) &&
-                com.google.common.base.Objects.equal(this.sizeY, that.sizeY);
+        return com.google.common.base.Objects.equal(this.getTitle(), that.getTitle()) &&
+                com.google.common.base.Objects.equal(this.getFileName(), that.getFileName());
+
     }
 
     @Override
     public int hashCode() {
-        return com.google.common.base.Objects.hashCode(title, file­name, sizeX, sizeY);
+        return com.google.common.base.Objects.hashCode(getTitle(), getFileName());
     }
 
-    @Override
-    public String toString() {
-        return Objects.toStringHelper(this)
-                .add("title", title)
-                .add("file­name", file­name)
-                .add("sizeX", sizeX)
-                .add("sizeY", sizeY)
-                .toString();
-    }
 }

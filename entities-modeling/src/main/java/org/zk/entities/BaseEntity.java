@@ -1,5 +1,7 @@
 package org.zk.entities;
 
+import com.google.common.base.Objects;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
@@ -37,5 +39,12 @@ public abstract class BaseEntity implements Serializable {
 
     public Calendar getLastModifiedDate() {
         return lastModifiedDate == null ? null : (Calendar) lastModifiedDate.clone();
+    }
+
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this)
+                .add("id", id)
+                .toString();
     }
 }

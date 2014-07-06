@@ -42,27 +42,17 @@ public class Author extends BaseEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Author)) return false;
 
         Author that = (Author) o;
 
-        return Objects.equal(this.userPassword, that.userPassword) &&
-                Objects.equal(this.userName, that.userName);
+        return Objects.equal(this.getUserPassword(), that.getUserPassword()) &&
+                Objects.equal(this.getUserName(), that.getUserName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(userPassword, userName);
+        return Objects.hashCode(getUserPassword(), getUserName());
     }
 
-    @Override
-    public String toString() {
-        return Objects.toStringHelper(this)
-                .add("id", id)
-                .add("userPassword", userPassword)
-                .add("userName", userName)
-                .add("createdDate", createdDate)
-                .add("lastModifiedDate", lastModifiedDate)
-                .toString();
-    }
 }

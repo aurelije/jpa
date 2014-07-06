@@ -51,30 +51,17 @@ public class PostComment extends BaseEntity {
     }
 
     @Override
-    public String toString() {
-        return Objects.toStringHelper(this)
-                .add("id", id)
-                .add("text", content)
-                .add("createdDate", createdDate)
-                .add("lastModifiedDate", lastModifiedDate)
-                .add("post", post)
-                .add("author", author)
-                .toString();
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof PostComment)) return false;
 
         PostComment that = (PostComment) o;
 
-        return Objects.equal(this.content, that.content) &&
-                Objects.equal(this.createdDate, that.createdDate);
+        return Objects.equal(this.getContent(), that.getContent());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(content, createdDate);
+        return Objects.hashCode(getContent());
     }
 }

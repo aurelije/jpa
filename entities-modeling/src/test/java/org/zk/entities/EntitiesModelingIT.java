@@ -85,8 +85,8 @@ public class EntitiesModelingIT extends JPAIntegrationTestBase {
 
             post.addTag(testTag);
 
-            Image image1 = new Image("image title1", "illustration1.jpg", 200, 300);
-            Image image2 = new Image("image title2", "illustration2.jpg", 100, 80);
+            Image image1 = new Image("image title1", "illustration1.jpg", new Point(200, 300));
+            Image image2 = new Image("image title2", "illustration2.jpg", new Point(100, 80));
 
             post.addImage(image1);
             post.addImage(image2);

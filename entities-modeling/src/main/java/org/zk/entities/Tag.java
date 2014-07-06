@@ -27,25 +27,16 @@ public class Tag extends BaseEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Tag)) return false;
 
         Tag that = (Tag) o;
 
-        return Objects.equal(this.name, that.name);
+        return Objects.equal(this.getName(), that.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(name);
+        return Objects.hashCode(getName());
     }
 
-    @Override
-    public String toString() {
-        return Objects.toStringHelper(this)
-                .add("id", id)
-                .add("name", name)
-                .add("createdDate", createdDate)
-                .add("lastModifiedDate", lastModifiedDate)
-                .toString();
-    }
 }

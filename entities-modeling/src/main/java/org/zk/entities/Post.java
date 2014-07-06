@@ -100,31 +100,18 @@ public class Post extends BaseEntity {
     }
 
     @Override
-    public String toString() {
-        return Objects.toStringHelper(this)
-                .add("id", id)
-                .add("subject", subject)
-                .add("body", body)
-                .add("author", author)
-                .add("createdDate", createdDate)
-                .add("lastModifiedDate", lastModifiedDate)
-                .toString();
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Post)) return false;
 
         Post that = (Post) o;
 
-        return Objects.equal(this.subject, that.subject) &&
-                Objects.equal(this.body, that.body) &&
-                Objects.equal(this.createdDate, that.createdDate);
+        return Objects.equal(this.getSubject(), that.getSubject()) &&
+                Objects.equal(this.getBody(), that.getBody());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(subject, body, createdDate);
+        return Objects.hashCode(getSubject(), getBody());
     }
 }
