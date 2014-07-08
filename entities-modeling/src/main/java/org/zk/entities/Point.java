@@ -3,9 +3,6 @@ package org.zk.entities;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.Min;
 
-/**
- * Created by zkadragic on 7/6/14.
- */
 @Embeddable
 public class Point {
     @Min(1)
@@ -18,6 +15,7 @@ public class Point {
         this.sizeY = sizeY;
     }
 
+    // private access is against JPA specification but works on both providers
     private Point() {
         // to keep JPA providers happy
     }

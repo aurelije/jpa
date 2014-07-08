@@ -29,9 +29,10 @@ public class Image implements Serializable {
     public Image(String title, String fileName, Point point) {
         this.title = title;
         this.fileName = fileName;
-        this.point = this.point;
+        this.point = point;
     }
 
+    // private access is against JPA specification but works on both providers
     private Image() {
         // to keep JPA providers happy
     }
