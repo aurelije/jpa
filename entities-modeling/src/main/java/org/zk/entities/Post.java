@@ -3,6 +3,7 @@ package org.zk.entities;
 import com.google.common.base.Objects;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.*;
@@ -28,6 +29,7 @@ public class Post extends BaseEntity {
     private Author author;
 
     @ElementCollection
+    @Valid
     private Set<Image> images = new HashSet<>();
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)

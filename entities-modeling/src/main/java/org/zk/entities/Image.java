@@ -24,12 +24,12 @@ public class Image implements Serializable {
     @Valid
     @NotNull
     @Embedded
-    private Point point;
+    private Dimension dimension;
 
-    public Image(String title, String fileName, Point point) {
+    public Image(String title, String fileName, Dimension dimension) {
         this.title = title;
         this.fileName = fileName;
-        this.point = point;
+        this.dimension = dimension;
     }
 
     // private access is against JPA specification but works on both providers
@@ -45,8 +45,8 @@ public class Image implements Serializable {
         return fileName;
     }
 
-    public Point getPoint() {
-        return point;
+    public Dimension getDimension() {
+        return dimension;
     }
 
     @Override
