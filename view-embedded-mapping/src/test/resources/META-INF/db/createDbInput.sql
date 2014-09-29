@@ -1,1 +1,0 @@
-CREATE TABLE tbl_test (  id bigserial NOT NULL,  prva_day character varying,  druga_day character varying,  prva_month character varying,  druga_month character varying,  CONSTRAINT test_pk PRIMARY KEY (id)) ; CREATE OR REPLACE VIEW view_test AS  SELECT tbl_test.id,    tbl_test.prva_day,    tbl_test.druga_day,    tbl_test.prva_month,    tbl_test.druga_month   FROM tbl_test;

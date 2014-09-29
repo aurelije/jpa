@@ -26,6 +26,7 @@ public abstract class BaseEntity implements Serializable {
 
     @PreUpdate
     @PrePersist
+    @SuppressWarnings("unused")
     private void updateTimeStamps() {
         lastModifiedDate = Calendar.getInstance();
         if (createdDate == null) {

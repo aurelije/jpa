@@ -1,6 +1,6 @@
 package org.zk.entities;
 
-import org.fest.assertions.api.Assertions;
+import org.assertj.core.api.Assertions;
 import org.testng.annotations.Test;
 import org.zk.env.JPAIntegrationTestBase;
 
@@ -149,15 +149,6 @@ public class EntitiesModelingIT extends JPAIntegrationTestBase {
             // javax.persistence.PersistenceException: org.hibernate.PropertyValueException: not-null property references a null or transient value : org.zk.entities.Post.author
 
         } catch (Exception e) {
-
-            /*try {
-                if (entityManager.isOpen() && entityManager.getTransaction().isActive() && entityManager.getTransaction().getRollbackOnly()) {
-                    entityManager.getTransaction().rollback();
-                }
-            } catch (Exception rbEx) {
-                System.err.println("Rollback of transaction failed, trace follows!");
-                rbEx.printStackTrace(System.err);
-            }*/
             throw e;
         } finally {
             TM.rollback();
@@ -195,19 +186,9 @@ public class EntitiesModelingIT extends JPAIntegrationTestBase {
         } catch (Exception e) {
             System.err.println("EntitiesModelingIT.postSaveUnsuccessfulNoCascadeToAuthor");
             System.err.println("e.toString() + \"\n \" + e.getMessage() = " + e.toString() + " \n" + e.getMessage());
-            /*try {
-                if (entityManager.isOpen() && entityManager.getTransaction().isActive() && entityManager.getTransaction().getRollbackOnly()) {
-                    entityManager.getTransaction().rollback();
-                }
-            } catch (Exception rbEx) {
-                System.err.println("Rollback of transaction failed, trace follows!");
-                rbEx.printStackTrace(System.err);
-            }*/
+
             throw e;
         } finally {
-            /*if (entityManager.isOpen()) {
-                entityManager.close();
-            }*/
             TM.rollback();
         }
     }
@@ -248,19 +229,9 @@ public class EntitiesModelingIT extends JPAIntegrationTestBase {
         } catch (Exception e) {
             System.err.println("EntitiesModelingIT.postSaveUnsuccessfulUserNameNotValid");
             System.err.println("e.toString() + \"\n \" + e.getMessage() = " + e.toString() + " \n" + e.getMessage());
-            /*try {
-                if (entityManager.isOpen() && entityManager.getTransaction().isActive() && entityManager.getTransaction().getRollbackOnly()) {
-                    entityManager.getTransaction().rollback();
-                }
-            } catch (Exception rbEx) {
-                System.err.println("Rollback of transaction failed, trace follows!");
-                rbEx.printStackTrace(System.err);
-            }*/
+
             throw e;
         } finally {
-            /*if (entityManager.isOpen()) {
-                entityManager.close();
-            }*/
             TM.rollback();
         }
 
