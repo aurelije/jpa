@@ -18,7 +18,7 @@ public class EntitiesModelingIT extends JPAIntegrationTestBase {
     }
 
     @Test
-    public void postSaveSuccessfulMinimal() throws Exception {
+    public void postSaveSuccessful_Minimal() throws Exception {
         UserTransaction tx = TM.getUserTransaction();
 
         try {
@@ -59,7 +59,7 @@ public class EntitiesModelingIT extends JPAIntegrationTestBase {
     }
 
     @Test
-    public void postSaveSuccessfulAll() throws Exception {
+    public void postSaveSuccessful_All() throws Exception {
         UserTransaction tx = TM.getUserTransaction();
 
         try {
@@ -87,7 +87,7 @@ public class EntitiesModelingIT extends JPAIntegrationTestBase {
 
             Image image1 = new Image("image title1", "illustration1.jpg", new Dimension(200, 300));
             Image image2 = new Image("image title2", "illustration2.jpg", new Dimension(100, 80));
-            Image image3 = new Image("image title3", "illustration3.jpg", new Dimension(0, 0));
+            Image image3 = new Image("image title3", "illustration3.jpg", new Dimension(1, 1));
 
             post.addImage(image1);
             post.addImage(image2);
@@ -121,7 +121,7 @@ public class EntitiesModelingIT extends JPAIntegrationTestBase {
     // Stupid Hibernate throws RollbackException and disobeys JPA specification
     // the bug is reported but they won't fix it: https://hibernate.atlassian.net/browse/HHH-8028
     @Test(expectedExceptions = {ConstraintViolationException.class, RollbackException.class})
-    public void postSaveUnsuccessfulNoAuthor() throws Exception {
+    public void postSaveUnsuccessful_NoAuthor() throws Exception {
         UserTransaction tx = TM.getUserTransaction();
 
         try {
@@ -147,8 +147,8 @@ public class EntitiesModelingIT extends JPAIntegrationTestBase {
 
             // results in :
             // javax.persistence.PersistenceException: org.hibernate.PropertyValueException: not-null property references a null or transient value : org.zk.entities.Post.author
-
         } catch (Exception e) {
+
             throw e;
         } finally {
             TM.rollback();
@@ -157,7 +157,7 @@ public class EntitiesModelingIT extends JPAIntegrationTestBase {
 
     // Stupid Hibernate throws IllegalStateException but should wrap that into RollbackException as EclipseLink does
     @Test(expectedExceptions = {RollbackException.class, IllegalStateException.class})
-    public void postSaveUnsuccessfulNoCascadeToAuthor() throws Exception {
+    public void postSaveUnsuccessful_NoCascadeToAuthor() throws Exception {
         UserTransaction tx = TM.getUserTransaction();
 
         try {
@@ -193,8 +193,10 @@ public class EntitiesModelingIT extends JPAIntegrationTestBase {
         }
     }
 
+    // Stupid Hibernate throws RollbackException and disobeys JPA specification
+    // the bug is reported but they won't fix it: https://hibernate.atlassian.net/browse/HHH-8028
     @Test(expectedExceptions = {ConstraintViolationException.class, RollbackException.class})
-    public void postSaveUnsuccessfulUserNameNotValid() throws Exception {
+    public void postSaveUnsuccessful_UserNameNotValid() throws Exception {
         UserTransaction tx = TM.getUserTransaction();
 
         try {
@@ -235,6 +237,58 @@ public class EntitiesModelingIT extends JPAIntegrationTestBase {
             TM.rollback();
         }
 
+    }
+
+    // Stupid Hibernate throws RollbackException and disobeys JPA specification
+    // the bug is reported but they won't fix it: https://hibernate.atlassian.net/browse/HHH-8028
+    // EclipseLink has a bug so this test fails: https://bugs.eclipse.org/bugs/show_bug.cgi?id=445555
+    @Test(expectedExceptions = {ConstraintViolationException.class, RollbackException.class})
+    public void postSaveUnsuccessful_DimensionNotValid() throws Exception {
+        UserTransaction tx = TM.getUserTransaction();
+
+        try {
+            tx.begin(); // JTA UserTransaction
+            EntityManager em = JPA.createEntityManager();
+
+            Post post = new Post();
+            Author author = new Author();
+
+            author.setUserName("testUser");
+            author.setUserPassword("password");
+
+            em.persist(author);
+
+            post.setAuthor(author);
+            post.setSubject("subject");
+            post.setBody("This is a body\nof this blog post");
+
+            post.addImage(new Image("test", "pic1.png", new Dimension(-1, -1)));
+
+            em.persist(post);
+
+            Long postId = post.getId();
+
+            tx.commit();
+            em.close();
+
+            em = JPA.createEntityManager();
+            tx.begin();
+
+            Post foundPost = em.find(Post.class, postId);
+
+            Assertions.assertThat(post).isEqualToComparingFieldByField(foundPost);
+
+            tx.commit();
+            em.close();
+
+        } catch (Exception e) {
+            System.err.println("EntitiesModelingIT.postSaveUnsuccessful_NoCascadeToAuthor");
+            System.err.println("e.toString() + \"\n \" + e.getMessage() = " + e.toString() + " \n " + e.getMessage());
+
+            throw e;
+        } finally {
+            TM.rollback();
+        }
     }
 
 }

@@ -18,11 +18,10 @@
         </dependency>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
-            <artifactId>eclipselink</artifactId>
-            <version>${version.eclipselink}</version>
+            <artifactId>org.eclipse.persistence.jpa</artifactId>
         </dependency>
         <dependency>
-        <groupId>org.testng</groupId>
+            <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <scope>compile</scope>
         </dependency>

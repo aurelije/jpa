@@ -32,7 +32,6 @@
         <skipTests>false</skipTests>
         <skipITs>${skipTests}</skipITs>
         <skipUTs>${skipTests}</skipUTs>
-        <version.junit>4.11</version.junit>
         <version.testng>6.8.8</version.testng>
         <version.assertj>1.6.1</version.assertj>
 
@@ -45,7 +44,6 @@
     </properties>
 
     <modules>
-        <!--<module>view-embedded-mapping</module>-->
         <module>entities-modeling</module>
         <module>environment</module>
     </modules>
@@ -98,14 +96,6 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-simple</artifactId>
                 <version>${version.slf4j}</version>
-            </dependency>
-
-            <!-- The tutorials use JUnit test cases to illustrate usage -->
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${version.junit}</version>
-                <scope>test</scope>
             </dependency>
 
             <dependency>
@@ -251,12 +241,12 @@
                         </execution>
                     </executions>
                     <dependencies>
-    					<dependency>
-      						<groupId>org.eclipse.persistence</groupId>
-      						<artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
-      						<version>${version.eclipselink}</version>
-    					</dependency>
-  					</dependencies>
+                        <dependency>
+                            <groupId>org.eclipse.persistence</groupId>
+                            <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
+                            <version>${version.eclipselink}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
             </plugins>
         </pluginManagement>

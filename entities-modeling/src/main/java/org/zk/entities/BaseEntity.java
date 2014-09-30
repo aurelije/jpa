@@ -1,6 +1,6 @@
 package org.zk.entities;
 
-import com.google.common.base.Objects;
+import com.google.common.base.MoreObjects;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -44,7 +44,7 @@ public abstract class BaseEntity implements Serializable {
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this)
+        return MoreObjects.toStringHelper(this)
                 .add("id", id)
                 .toString();
     }
