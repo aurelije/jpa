@@ -40,11 +40,11 @@
 
             <!-- <property name="javax.persistence.schema-generation.create-script-source" value="META-INF/db/createDbInput.sql"/>
             <property name="javax.persistence.schema-generation.drop-script-source" value="META-INF/db/dropDbInput.sql"/> -->
-            <!--<property name="javax.persistence.schema-generation.scripts.action" value="drop-and-create"/>
+            <property name="javax.persistence.schema-generation.scripts.action" value="drop-and-create"/>
             <property name="javax.persistence.schema-generation.scripts.create-target"
                       value="${basedir}/src/test/resources/META-INF/db/create-generated-${environment}.sql"/>
             <property name="javax.persistence.schema-generation.scripts.drop-target"
-                      value="${basedir}/src/test/resources/META-INF/db/drop-generated-${environment}.sql"/>-->
+                      value="${basedir}/src/test/resources/META-INF/db/drop-generated-${environment}.sql"/>
             <property name="javax.persistence.schema-generation.create-source" value="metadata"/>
             <property name="javax.persistence.schema-generation.drop-source" value="metadata"/>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>

@@ -5,6 +5,8 @@ import org.testng.annotations.Test;
 import org.zk.env.JPAIntegrationTestBase;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceUtil;
 import javax.transaction.RollbackException;
 import javax.transaction.UserTransaction;
 import javax.validation.ConstraintViolationException;
@@ -286,6 +288,35 @@ public class EntitiesModelingIT extends JPAIntegrationTestBase {
             System.err.println("e.toString() + \"\n \" + e.getMessage() = " + e.toString() + " \n " + e.getMessage());
 
             throw e;
+        } finally {
+            TM.rollback();
+        }
+    }
+
+    @Test
+    public void realToProxyEquals() throws Exception {
+        UserTransaction tx = TM.getUserTransaction();
+
+        try {
+            tx.begin(); // JTA UserTransaction
+            EntityManager em = JPA.createEntityManager();
+
+            Post post = em.getReference(Post.class, 2L);
+
+            PersistenceUtil persistenceUtil = Persistence.getPersistenceUtil();
+
+            Post postEqual = new Post();
+            postEqual.setSubject("subject");
+            postEqual.setBody("This is a body of this blog post");
+
+            // true for EclipseLink, false for Hibernate
+            System.out.println("isLoaded: " + persistenceUtil.isLoaded(post));
+
+            Assertions.assertThat(postEqual).isEqualTo(post);
+
+            tx.commit();
+            em.close();
+
         } finally {
             TM.rollback();
         }

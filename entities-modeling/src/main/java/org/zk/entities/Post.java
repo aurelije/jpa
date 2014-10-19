@@ -103,8 +103,13 @@ public class Post extends BaseEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Post)) return false;
+        if (this == o) {
+            return true;
+        }
+
+        if (!(o instanceof Post)) {
+            return false;
+        }
 
         Post that = (Post) o;
 

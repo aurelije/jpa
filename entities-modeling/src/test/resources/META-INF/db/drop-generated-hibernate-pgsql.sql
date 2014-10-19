@@ -10,4 +10,4 @@ drop table Post cascade
 drop table Post_Tag cascade
 drop table Post_images cascade
 drop table Tag cascade
-drop sequence hibernate_sequence
+drop sequence entity_sequence

@@ -10,4 +10,4 @@ alter table Post add constraint FK_m7j5gwmpa7dklv5bnc41ertmi foreign key (author
 alter table Post_Tag add constraint FK_t0ml4xx4nhnqjwrhxugwlvrpm foreign key (tags_id) references Tag
 alter table Post_Tag add constraint FK_ex1oknil4le2tootduvjnllp6 foreign key (Post_id) references Post
 alter table Post_images add constraint FK_e1cctrpwih4egtxo313673h9l foreign key (Post_id) references Post
-create sequence hibernate_sequence start 1 increment 1
+create sequence entity_sequence start 100 increment 50

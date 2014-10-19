@@ -8,10 +8,11 @@ import java.util.Calendar;
 
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable {
+    public static final String ENTITY_SEQUENCE = "EntitySequence";
     private static final long serialVersionUID = 1L;
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = BaseEntity.ENTITY_SEQUENCE, initialValue = 100, sequenceName = "entity_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = ENTITY_SEQUENCE)
     protected Long id;
 
     @Temporal(TemporalType.TIMESTAMP)
